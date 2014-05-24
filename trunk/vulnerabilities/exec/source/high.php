@@ -12,9 +12,15 @@ if( isset( $_POST[ 'submit' ] ) ) {
 	
 	// Check IF each octet is an integer
 	if ((is_numeric($octet[0])) && (is_numeric($octet[1])) && (is_numeric($octet[2])) && (is_numeric($octet[3])) && (sizeof($octet) == 4)  ) {
-	
-	// If all 4 octets are int's put the IP back together.
-	$target = $octet[0].'.'.$octet[1].'.'.$octet[2].'.'.$octet[3];
+
+		/*  Previnir injeção de código hexadecimal - Victor Lins */
+		$firstOctet  = (int) $octet[0];
+		$secondOctet = (int) $octet[1];
+		$thirdOctet  = (int) $octet[2];
+		$fourthOctet = (int) $octet[3];
+
+		// If all 4 octets are int's put the IP back together.
+		$target = $firstOctet.'.'.$secondOctet.'.'.$thirdOctet.'.'.$fourthOctet;
 	
 	
 		// Determine OS and execute the ping command.

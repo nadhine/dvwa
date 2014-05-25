@@ -13,7 +13,7 @@ if( isset( $_POST[ 'submit' ] ) ) {
 	// Check IF each octet is an integer
 	if ((is_numeric($octet[0])) && (is_numeric($octet[1])) && (is_numeric($octet[2])) && (is_numeric($octet[3])) && (sizeof($octet) == 4)  ) {
 
-		/*  Previnir injeção de código hexadecimal - Victor Lins */
+		/*  Previnir injeção de código hexadecimal */
 		$firstOctet  = (int) $octet[0];
 		$secondOctet = (int) $octet[1];
 		$thirdOctet  = (int) $octet[2];

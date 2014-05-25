@@ -14,6 +14,7 @@ if( isset( $_GET[ 'Login' ] ) ) {
 	$pass = md5( $pass );
 
 	if (blocked_user($user)) {
+		/*  Bloquear login quando for atingido 5 tentativas falhas */
 		sleep(3);
 		$html .= "<pre><br>Block user on 5 unsuccessful login attempts.</pre>";
 	} else {

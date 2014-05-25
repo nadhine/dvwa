@@ -13,7 +13,7 @@ if(isset($_GET['Submit'])){
 	$id = mysql_real_escape_string($id);
 
 	if (is_numeric($id)) {
-        /*  Previnir injeção de código hexadecimal */
+		/*  Previnir injeção de código hexadecimal */
 		$id = (int) $id;
 
 		$getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'";

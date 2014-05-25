@@ -10,6 +10,7 @@ if (isset($_GET['Submit'])) {
 
 	if (is_numeric($id)){
 
+        /*  Previnir injeção de código hexadecimal */
 		$id = (int)$id;
 
 		$getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'";
@@ -19,6 +20,7 @@ if (isset($_GET['Submit'])) {
 
 		$i=0;
 
+		/*  Iterar em apenas um resultado */
 		if ($num == 1) {
 			$first = mysql_result($result,$i,"first_name");
 			$last = mysql_result($result,$i,"last_name");

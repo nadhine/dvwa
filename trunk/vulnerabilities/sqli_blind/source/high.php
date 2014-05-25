@@ -1,4 +1,8 @@
-<?php	
+<?php
+
+/* Não exibir erros */
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 
 if(isset($_GET['Submit'])){
 
@@ -9,6 +13,8 @@ if(isset($_GET['Submit'])){
 	$id = mysql_real_escape_string($id);
 
 	if (is_numeric($id)) {
+        /*  Previnir injeção de código hexadecimal */
+		$id = (int) $id;
 
 		$getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'";
 		$result = mysql_query($getid); // Removed 'or die' to suppres mysql errors
@@ -17,7 +23,8 @@ if(isset($_GET['Submit'])){
 
 		$i=0;
 
-		while ($i < $num) {
+		/*  Iterar em apenas um resultado */
+		if ($num == 1) {
 
 			$first = mysql_result($result,$i,"first_name");
 			$last = mysql_result($result,$i,"last_name");

@@ -3,7 +3,7 @@
 if( isset( $_POST['Change'] ) && ( $_POST['step'] == '1' ) ) {
 	
 	$hide_form = true;
-	$user = $_POST['username'];
+
 	$pass_new = $_POST['password_new'];
 	$pass_conf = $_POST['password_conf'];
 	$resp = recaptcha_check_answer ($_DVWA['recaptcha_private_key'],
@@ -35,30 +35,30 @@ if( isset( $_POST['Change'] ) && ( $_POST['step'] == '1' ) ) {
 	}
 }
 
-if( isset( $_POST['Change'] ) && ( $_POST['step'] == '2' ) ) 
-{
+if( isset( $_POST['Change'] ) && ( $_POST['step'] == '2' ) ) {
+	$pass_new = $_POST['password_new'];
+	$pass_conf = $_POST['password_conf'];
+
 	$hide_form = true;
-        if ($pass_new != $pass_conf)
-        {
-                $html .= "<pre><br />Both passwords must match</pre>";
+	if ($pass_new != $pass_conf){
+		$html .= "<pre><br />Both passwords must match</pre>";
 		$hide_form = false;
-                return;
-        }
-        $pass = md5($pass_new);
-        if (($pass_new == $pass_conf)){
-               $pass_new = mysql_real_escape_string($pass_new);
-               $pass_new = md5($pass_new);
+		return;
+	}
 
-               $insert="UPDATE `users` SET password = '$pass_new' WHERE user = '" . dvwaCurrentUser() . "';";
-               $result=mysql_query($insert) or die('<pre>' . mysql_error() . '</pre>' );
+	$pass = md5($pass_new);
+	if (($pass_new == $pass_conf)){
+		$pass_new = mysql_real_escape_string($pass_new);
+		$pass_new = md5($pass_new);
 
-               $html .= "<pre> Password Changed </pre>";
-               mysql_close();
-        }
+		$insert="UPDATE `users` SET password = '$pass_new' WHERE user = '" . dvwaCurrentUser() . "';";
+		$result=mysql_query($insert) or die('<pre>' . mysql_error() . '</pre>' );
 
-        else{
-               $html .= "<pre> Passwords did not match. </pre>";
-        }
+		$html .= "<pre> Password Changed </pre>";
+		mysql_close();
+	} else{
+		$html .= "<pre> Passwords did not match. </pre>";
+	}
 }
 
 ?>

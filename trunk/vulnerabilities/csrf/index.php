@@ -45,6 +45,11 @@ $page[ 'body' ] .= "
 	if (dvwaSecurityLevelGet() == 'high'){
 		$page[ 'body' ] .= "Current password:<br>
 		<input type=\"password\" AUTOCOMPLETE=\"off\" name=\"password_current\"><br>";
+
+		$token = hash("md5",rand().time().rand());
+		$_SESSION['token'] = $token;
+
+		$page['body'] .= "<input type=\"hidden\" name=\"token\" value=\"$token\"/>";
 	}
     
 $page[ 'body' ] .= "    New password:<br>

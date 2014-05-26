@@ -1,7 +1,12 @@
 <?php
-			
-	if (isset($_GET['Change'])) {
-	
+
+if (isset($_GET['Change'])) {
+	if (!isset($_SESSION)) session_start();
+
+	$get_token = isset($_GET['token']) ? $_GET['token'] : null;
+	$session_token = isset($_SESSION['token']) ? $_SESSION['token'] : null;
+
+	if (!is_null($get_token) && !is_null($session_token) && ($get_token === $session_token)) {
 		// Turn requests into variables
 		$pass_curr = $_GET['password_current'];
 		$pass_new = $_GET['password_new'];
@@ -23,13 +28,15 @@
 			$insert="UPDATE `users` SET password = '$pass_new' WHERE user = 'admin';";
 			$result=mysql_query($insert) or die('<pre>' . mysql_error() . '</pre>' );
 						
-			$html .= "<pre> Password Changed </pre>";		
+			$html .= "<pre> Password Changed </pre>";
 			mysql_close();
 		}
-	
+
 		else{		
 			$html .= "<pre> Passwords did not match or current password incorrect. </pre>";			
 		}
-
+	} else {
+		$html .= "<pre> Update not allowed. </pre>";
 	}
+}
 ?>
